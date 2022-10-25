@@ -1,5 +1,7 @@
 import tkinter as tk
 import rsa
+import random
+import string
 
 # ***** GLOBAL VARIABLES ***** #
 objects = []
@@ -72,6 +74,9 @@ def logP(PassIn):
     print(PassIn)
     # Encrypts Password
     pswSave = rsa.encrypt(PassIn.encode(), publicKey)
+    # Gotta Salt It
+    # letters = string.ascii_letters
+    pswSave.join(random.choice(string.ascii_letters + string.punctuation) for _ in range(10))
     print(pswSave)
     # Inserts Password into storage file
     # storage.write('Password:' + pswSave)
