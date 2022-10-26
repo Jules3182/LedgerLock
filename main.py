@@ -6,8 +6,14 @@ import string
 # ***** GLOBAL VARIABLES ***** #
 objects = []
 root = tk.Tk()
-UEnt = tk.Entry(root, bd=5)
-PEnt = tk.Entry(root, bd=5)
+UEnt = tk.Entry(root, width=20, bg='black', fg='green', highlightbackground='green', highlightcolor='lightgreen')
+PEnt = tk.Entry(root, show='*', width=20, bg='black', fg='green', highlightbackground='green', highlightcolor='lightgreen')
+userLabel = tk.Label(root, text="Username:", bg='black', fg='green')
+topLabel = tk.Label(root, text="LedgerLock V0.0.1", bg='black', fg='lightgreen')
+passLabel = tk.Label(root, text="Password:", bg='black', fg='green')
+quit = tk.Button(root, text="QUIT", background="black", fg='red', highlightbackground='black',highlightcolor='black')
+subButton = tk.Button(root, text="Submit", bg='black', fg='lightgreen', highlightbackground='black',highlightcolor='black')
+
 storage = open("vaultFile.txt", "a+")
 publicKey, privateKey = rsa.newkeys(512)
 
@@ -15,6 +21,7 @@ publicKey, privateKey = rsa.newkeys(512)
 root.title("LedgerLock V0.0.1")
 root.geometry('550x700')
 root.config(highlightcolor='green')
+root.configure(bg='black')
 
 
 # ***** SET UP ***** #
@@ -25,27 +32,24 @@ class App(tk.Frame):
 
     def main(self):
         # Title bar at top
-        topLabel = tk.Label(self, text="LedgerLock V0.0.1")
-        topLabel.grid(row=0, column=0)
+        topLabel.grid(row=1, column=1)
         # Instructions
 
         # Username Label
-        userLabel = tk.Label(self, text="Username:")
-        userLabel.grid(row=2, column=0, sticky='w')
+        userLabel.grid(row=2, column=1, sticky='W')
         # Password Label
-        passLabel = tk.Label(self, text="Password:")
-        passLabel.grid(row=3, column=0, sticky='w')
+        passLabel.grid(row=3, column=1, sticky='W')
         # Username Entry
-        UEnt.grid(row=2, column=1)
+        UEnt.grid(row=2, column=2, sticky='E')
         # Password Entry
-        PEnt.grid(row=3, column=1)
+        PEnt.grid(row=3, column=2, sticky='E')
         # Submit Button
-        subButton = tk.Button(self, text="Submit", command=submit)
-        subButton.grid(row=6, column=1)
-
+        subButton.command = submit
+        subButton.grid(row=6, column=2, sticky='E')
         # Quit Button
-        quit = tk.Button(self, text="QUIT", background="red", command=self.master.destroy)
-        quit.grid(row=7, column=2)
+        quit.command = self.master.destroy
+        quit.grid(row=6, column=1, sticky="W")
+
         self.grid()
 
 
