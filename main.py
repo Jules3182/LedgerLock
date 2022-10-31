@@ -6,13 +6,22 @@ import string
 # ***** GLOBAL VARIABLES ***** #
 objects = []
 root = tk.Tk()
-UEnt = tk.Entry(root, width=20, bg='black', fg='green', highlightbackground='green', highlightcolor='lightgreen')
-PEnt = tk.Entry(root, show='*', width=20, bg='black', fg='green', highlightbackground='green', highlightcolor='lightgreen')
-userLabel = tk.Label(root, text="Username:", bg='black', fg='green')
-topLabel = tk.Label(root, text="LedgerLock V0.0.1", bg='black', fg='lightgreen')
-passLabel = tk.Label(root, text="Password:", bg='black', fg='green')
-quit = tk.Button(root, text="QUIT", background="black", fg='red', highlightbackground='black',highlightcolor='black')
-subButton = tk.Button(root, text="Submit", bg='black', fg='lightgreen', highlightbackground='black',highlightcolor='black')
+# Gruv Scheme
+bg0 = '#665c54'
+bg2 = '#504945'
+red = '#fb4934'
+green = '#98971a'
+yellow = '#fabd2f'
+fg4 = '#a89984'
+fg3 = '#bdae98'
+
+UEnt = tk.Entry(root, width=20, bg=bg2, fg=fg3, highlightbackground=bg2, highlightcolor=fg3)
+PEnt = tk.Entry(root, show='*', width=20, bg=bg2, fg=fg3, highlightbackground=bg2, highlightcolor=fg3)
+userLabel = tk.Label(root, text="Username:", bg=bg0, fg=fg3)
+topLabel = tk.Label(root, text="LedgerLock V0.0.1", bg=bg0, fg=green)
+passLabel = tk.Label(root, text="Password:", bg=bg0, fg=fg3)
+quit = tk.Button(root, text="QUIT", background=bg0, fg=red, highlightbackground='black',highlightcolor='black')
+subButton = tk.Button(root, text="Submit", bg=bg0, fg=green, highlightbackground='black',highlightcolor='black')
 
 storage = open("vaultFile.txt", "a+")
 publicKey, privateKey = rsa.newkeys(512)
@@ -21,7 +30,7 @@ publicKey, privateKey = rsa.newkeys(512)
 root.title("LedgerLock V0.0.1")
 root.geometry('550x700')
 root.config(highlightcolor='green')
-root.configure(bg='black')
+root.configure(bg=bg0)
 
 
 # ***** SET UP ***** #
