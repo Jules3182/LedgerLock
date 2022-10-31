@@ -20,8 +20,8 @@ PEnt = tk.Entry(root, show='*', width=20, bg=bg2, fg=fg3, highlightbackground=bg
 userLabel = tk.Label(root, text="Username:", bg=bg0, fg=fg3)
 topLabel = tk.Label(root, text="LedgerLock V0.0.1", bg=bg0, fg=green)
 passLabel = tk.Label(root, text="Password:", bg=bg0, fg=fg3)
-quit = tk.Button(root, text="QUIT", background=bg0, fg=red, highlightbackground='black',highlightcolor='black')
-subButton = tk.Button(root, text="Submit", bg=bg0, fg=green, highlightbackground='black',highlightcolor='black')
+quit = tk.Button(root, text="QUIT", background=bg0, fg=red, highlightbackground='black', highlightcolor='black')
+subButton = tk.Button(root, text="Submit", bg=bg0, fg=green, highlightbackground='black', highlightcolor='black')
 
 storage = open("vaultFile.txt", "a+")
 publicKey, privateKey = rsa.newkeys(512)
@@ -53,10 +53,10 @@ class App(tk.Frame):
         # Password Entry
         PEnt.grid(row=3, column=2, sticky='E')
         # Submit Button
-        subButton.command = submit
+        subButton.configure(command=submit)
         subButton.grid(row=6, column=2, sticky='E')
         # Quit Button
-        quit.command = self.master.destroy
+        quit.configure(command=self.master.destroy)
         quit.grid(row=6, column=1, sticky="W")
 
         self.grid()
