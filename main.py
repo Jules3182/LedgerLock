@@ -1,7 +1,7 @@
+import os
 import tkinter as tk
 import rsa
-import random
-import string
+import hashlib
 
 # ***** GLOBAL VARIABLES ***** #
 objects = []
@@ -14,17 +14,17 @@ green = '#98971a'
 yellow = '#fabd2f'
 fg4 = '#a89984'
 fg3 = '#bdae98'
-
+# Visual Elements
 UEnt = tk.Entry(root, width=20, bg=bg2, fg=fg3, highlightbackground=bg2, highlightcolor=fg3)
 PEnt = tk.Entry(root, show='*', width=20, bg=bg2, fg=fg3, highlightbackground=bg2, highlightcolor=fg3)
 userLabel = tk.Label(root, text="Username:", bg=bg0, fg=fg3)
 topLabel = tk.Label(root, text="LedgerLock V0.0.1", bg=bg0, fg=green)
 passLabel = tk.Label(root, text="Password:", bg=bg0, fg=fg3)
-quit = tk.Button(root, text="QUIT", background=bg0, fg=red, highlightbackground='black', highlightcolor='black')
-subButton = tk.Button(root, text="Submit", bg=bg0, fg=green, highlightbackground='black', highlightcolor='black')
-
+quit = tk.Button(root, text="QUIT", background=bg0, fg=red, highlightbackground='black', highlightcolor='black', activebackground=bg2, activeforeground=red)
+subButton = tk.Button(root, text="Submit", bg=bg0, fg=green, highlightbackground='black', highlightcolor='black', activebackground=bg2, activeforeground=green)
+# encryption/storage back end bits
 storage = open("vaultFile.txt", "a+")
-publicKey, privateKey = rsa.newkeys(512)
+publicKey, privateKey = rsa.newkeys(256)
 
 # ***** LOOK PREFERENCES ***** #
 root.title("LedgerLock V0.0.1")
@@ -88,9 +88,9 @@ def logP(PassIn):
     # Encrypts Password
     pswSave = rsa.encrypt(PassIn.encode(), publicKey)
     # Gotta Salt It
-    # letters = string.ascii_letters
-    pswSave.join(random.choice(string.ascii_letters + string.punctuation) for _ in range(10))
-    print(pswSave)
+    salt = os.urandom(32)
+    digest = hashlib.pbkdf2_hmac('sha256', pswSave, salt, 10000)
+    print(digest)
     # Inserts Password into storage file
     # storage.write('Password:' + pswSave)
     # Clears the input field
