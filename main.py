@@ -15,8 +15,10 @@ yellow = '#fabd2f'
 fg4 = '#a89984'
 fg3 = '#bdae98'
 # Visual Elements
+LEnt = tk.Entry(root, width=20, bg=bg2, fg=fg3, highlightbackground=bg2, highlightcolor=fg3)
 UEnt = tk.Entry(root, width=20, bg=bg2, fg=fg3, highlightbackground=bg2, highlightcolor=fg3)
 PEnt = tk.Entry(root, show='*', width=20, bg=bg2, fg=fg3, highlightbackground=bg2, highlightcolor=fg3)
+labelLabel = tk.Label(root, text="Label:", bg=bg0, fg=fg3)
 userLabel = tk.Label(root, text="Username:", bg=bg0, fg=fg3)
 topLabel = tk.Label(root, text="LedgerLock V0.0.1", bg=bg0, fg=green)
 passLabel = tk.Label(root, text="Password:", bg=bg0, fg=fg3)
@@ -44,14 +46,18 @@ class App(tk.Frame):
         topLabel.grid(row=1, column=1)
         # Instructions
 
+        # Label Label...
+        labelLabel.grid(row=2, column=1, sticky='W')
+        # Label Entry
+        LEnt.grid(row=2, column=2, sticky='E')
         # Username Label
-        userLabel.grid(row=2, column=1, sticky='W')
+        userLabel.grid(row=3, column=1, sticky='W')
         # Password Label
-        passLabel.grid(row=3, column=1, sticky='W')
+        passLabel.grid(row=4, column=1, sticky='W')
         # Username Entry
-        UEnt.grid(row=2, column=2, sticky='E')
+        UEnt.grid(row=3, column=2, sticky='E')
         # Password Entry
-        PEnt.grid(row=3, column=2, sticky='E')
+        PEnt.grid(row=4, column=2, sticky='E')
         # Submit Button
         subButton.configure(command=submit)
         subButton.grid(row=6, column=2, sticky='E')
@@ -65,12 +71,15 @@ class App(tk.Frame):
 # ***** FUNCTIONS ***** #
 def submit():
     # Pull Info from entry fields
-    logU(UEnt.get())
+    logUandL(UEnt.get(), LEnt.get())
     logP(PEnt.get())
 
 
 # Todo: Overload this to encrypt the same way with an extra input
-def logU(UserIn):
+def logUandL(UserIn, LabelIn):
+    # log Label
+    print(LabelIn)
+    # storage.write('\n' + 'Label:' + LabelIn)
     # Logs Username
     print(UserIn)
     # Encrypts username
@@ -92,7 +101,7 @@ def logP(PassIn):
     digest = hashlib.pbkdf2_hmac('sha256', pswSave, salt, 10000)
     print(digest)
     # Inserts Password into storage file
-    # storage.write('Password:' + pswSave)
+    # storage.write('Password:' + digest)
     # Clears the input field
     PEnt.delete(0, 'end')
 
